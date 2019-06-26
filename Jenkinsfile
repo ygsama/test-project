@@ -2,8 +2,8 @@
 pipeline {
     agent {
         docker {
-            image 'gradle:4.10.2-jre8-slim'
-            args '-v /root/.m2:/root/.m2 '
+            image 'gradle:4.10.3-jdk8'
+            args '-v /root/.m2:/root/.m2  /root/.gradle:/root.gradle'
         }
     }
     stages {
