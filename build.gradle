@@ -4,43 +4,22 @@ buildscript {
     }
     dependencies {
         classpath('org.springframework.boot:spring-boot-gradle-plugin:2.1.3.RELEASE')
-        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'docker'
-
-// This is used as the docker image prefix (org)
-group = 'ygsama'
-
-
 apply plugin: 'org.springframework.boot'
 
 bootJar {
-    classifier = 'boot'
     baseName = 'test-project'
     version = '1.0.0'
-
 }
 
 jar {
     baseName = 'test-project'
     version = '1.0.0'
-    enabled = true
-}
-task buildDocker(type: Docker, dependsOn: build) {
-    push = true
-    applicationName = jar.baseName
-    dockerfile = file('Dockerfile')
-    doFirst {
-        copy {
-            from jar
-            into stageDir
-        }
-    }
 }
 
 repositories {
@@ -55,7 +34,3 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:2.1.3.RELEASE")
 }
 
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
-}
