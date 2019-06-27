@@ -7,7 +7,7 @@ pipeline {
             args '-v /root/.gradle:/root/.gradle'
             args '-v /root/.m2:/root/.m2'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
-            args '-v $(which docker)r:/bin/docker'
+            args '-v /bin/docker:/bin/docker'
         }
     }
     stages {
