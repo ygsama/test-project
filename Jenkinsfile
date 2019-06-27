@@ -15,8 +15,7 @@ pipeline {
         stage('Image') {
             steps {
                 sh 'pwd'
-                sh 'cd build/libs'
-                sh 'pwd'
+                sh './deploy.sh'
             }
         }
     }
