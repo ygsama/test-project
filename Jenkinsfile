@@ -1,7 +1,7 @@
 pipeline {
     environment {
         APP_NAME = 'test-project'
-        APP_VERSION  = '1.0.1'
+        APP_VERSION  = '1.0.2'
     }
     agent {
         docker {
@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Deploy in Docker') {
             steps {
-                sh 'docker run -d -p 9090:8080  10.2.21.95:10001/${BASE_NAME}:${VERSION}'
+                sh 'docker run -d -p 9090:8080  10.2.21.95:10001/${APP_NAME}:${APP_VERSION}'
             }
         }
     }
