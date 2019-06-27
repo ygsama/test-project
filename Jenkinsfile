@@ -1,5 +1,8 @@
-
 pipeline {
+    environment {
+        APP_NAME = 'test-project'
+        APP_VERSION  = '1.0.1'
+    }
     agent {
         docker {
             image 'gradle:4.10.2-jdk8'
@@ -11,19 +14,27 @@ pipeline {
         }
     }
     stages {
-        stage('Build') {
+        stage('Build by Gradle') {
             steps {
+                sh 'pwd'
+                sh 'ls -al'
                 sh 'gradle bootjar'
             }
         }
-        stage('Image') {
+        stage('Deliver to Nexus') {
             steps {
                 sh 'pwd'
-                sh 'cp Dockerfile ./build/libs/'
                 sh 'ls -al'
+                sh 'cp Dockerfile ./build/libs/'
                 sh 'ls -al ./build/libs'
-                sh 'docker build -t 10.2.21.95:10001/test-project:1.0.0 ./build/libs'
-                sh 'docker run -d -p 9090:8080  10.2.21.95:10001/test-project:1.0.0'
+                sh 'docker build -t 10.2.21.95:10001/${APP_NAME}:${APP_VERSION} ./build/libs'
+                sh 'docker login -u publisher -p publisher 10.2.21.95:10001'
+                sh 'docker push 10.2.21.95:10001/${APP_NAME}:${APP_VERSION}'
+            }
+        }
+        stage('Deploy in Docker') {
+            steps {
+                sh 'docker run -d -p 9090:8080  10.2.21.95:10001/${BASE_NAME}:${VERSION}'
             }
         }
     }

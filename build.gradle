@@ -16,13 +16,13 @@ apply plugin: 'org.springframework.boot'
 bootJar {
     classifier = 'boot'
     baseName = 'test-project'
-    version = '1.0.0'
+    version = '1.0.1'
 
 }
 
 jar {
     baseName = 'test-project'
-    version = '1.0.0'
+    version = '1.0.1'
     enabled = true
 }
 
