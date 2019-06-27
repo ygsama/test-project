@@ -12,5 +12,12 @@ pipeline {
                 sh 'gradle bootjar'
             }
         }
+        stage('Build') {
+            steps {
+                sh 'pwd'
+                sh 'cd build/libs'
+                sh 'pwd'
+            }
+        }
     }
 }
