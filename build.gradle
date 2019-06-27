@@ -14,18 +14,9 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 bootJar {
-    classifier = 'boot'
     baseName = 'test-project'
     version = '1.0.2'
-
 }
-
-jar {
-    baseName = 'test-project'
-    version = '1.0.2'
-    enabled = true
-}
-
 
 repositories {
     mavenCentral()
