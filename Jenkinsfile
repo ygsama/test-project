@@ -5,7 +5,8 @@ pipeline {
     }
     agent {
         docker {
-            image 'gradle:4.10.2-jdk8'
+            // image 'gradle:4.10.2-jdk8'
+            image 'openjdk:8-jdk'
             args '--privileged'
             args '-v /opt/gradle-4.10.3:/opt/gradle-4.10.3'
             args '-v /opt/.gradle:/opt/.gradle'
@@ -25,6 +26,5 @@ pipeline {
                 sh 'gradle -version'
             }
         }
-
     }
 }
