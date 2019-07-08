@@ -7,12 +7,11 @@ pipeline {
         docker {
             // image 'gradle:4.10.2-jdk8'
             image 'openjdk:8-jdk'
-            args '--privileged'
-            args '-v /opt/gradle-4.10.3:/opt/gradle-4.10.3'
-            args '-v /opt/.gradle:/opt/.gradle'
-            args '-v /root/.m2:/root/.m2'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
+            args '--privileged=true'
             args '-v /bin/docker:/bin/docker'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+            args '-v /opt/gradle-4.10.3:/opt/gradle-4.10.3:shared'
+            args '-v /opt/.gradle:/opt/.gradle:shared'
         }
     }
     stages {
