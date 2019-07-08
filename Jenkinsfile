@@ -20,9 +20,6 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls -al'
-                sh 'export GRADLE_HOME=/opt/gradle-4.10.3'
-                sh 'export GRADLE_USER_HOME=/opt/.gradle'
-                sh 'export PATH=$PATH:$GRADLE_HOME/bin'
                 sh 'ls -al /opt/gradle-4.10.3'
                 sh '/opt/gradle-4.10.3/gradle -version'
             }
