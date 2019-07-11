@@ -35,6 +35,7 @@ pipeline {
         stage('Deploy in Docker') {
             steps {
                 // sh 'docker run -d -p 9091:8080  10.2.21.95:10001/${APP_NAME}:${APP_VERSION}'
+                sh 'ls -al '
             }
         }
     }
