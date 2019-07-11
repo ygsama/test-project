@@ -7,8 +7,8 @@ pipeline {
         docker {
             //image 'gradle:4.10.3-jdk8'
             image '10.2.21.95:10001/zj-gradle:4.10.3'
+            args '-v test-data:/home/gradle/.gradle'
             args '--privileged'
-            args '-v gradle-data:/home/gradle/.gradle'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
             args '-v /bin/docker:/bin/docker'
         }
@@ -28,13 +28,13 @@ pipeline {
                 sh 'cp Dockerfile ./build/libs/'
                 sh 'ls -al ./build/libs'
                 sh 'docker build -t 10.2.21.95:10001/${APP_NAME}:${APP_VERSION} ./build/libs'
-                sh 'docker login -u publisher -p publisher 10.2.21.95:10001'
-                sh 'docker push 10.2.21.95:10001/${APP_NAME}:${APP_VERSION}'
+                // sh 'docker login -u publisher -p publisher 10.2.21.95:10001'
+                // sh 'docker push 10.2.21.95:10001/${APP_NAME}:${APP_VERSION}'
             }
         }
         stage('Deploy in Docker') {
             steps {
-                sh 'docker run -d -p 9090:8080  10.2.21.95:10001/${APP_NAME}:${APP_VERSION}'
+                // sh 'docker run -d -p 9091:8080  10.2.21.95:10001/${APP_NAME}:${APP_VERSION}'
             }
         }
     }
