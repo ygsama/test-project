@@ -7,7 +7,7 @@ pipeline {
         docker {
             // image '10.2.21.95:10001/zj-gradle:4.10.3'
             image 'gradle:4.10.3-jdk8'
-            args '-v gradle-cache:/home/gradle/.gradle'
+            args '-v /root/.gradle:/home/gradle/.gradle'
             args '--privileged'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
             args '-v /bin/docker:/bin/docker'
