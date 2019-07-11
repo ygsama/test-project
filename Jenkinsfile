@@ -5,9 +5,9 @@ pipeline {
     }
     agent {
         docker {
-            image 'gradle:4.10.2-jdk8'
+            image 'gradle:4.10.3-jdk8'
             args '--privileged'
-            args '-v redis-data:/root/.gradle/'
+            args '-v gradle-data:/home/gradle/.gradle'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
             args '-v /bin/docker:/bin/docker'
         }
