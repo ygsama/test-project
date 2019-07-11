@@ -19,10 +19,13 @@ pipeline {
                 sh 'pwd'
                 sh 'ls -al'
                 sh 'ls -al /opt/gradle-4.10.3'
-                sh 'export GRADLE_HOME=/opt/gradle-4.10.3'
-                sh 'export GRADLE_USER_HOME=/opt/.gradle'
-                sh 'export PATH=$PATH:$GRADLE_HOME/bin'
+                sh 'echo GRADLE_HOME=/opt/gradle-4.10.3 >> /etc/profile'
+                sh 'echo GRADLE_USER_HOME=/opt/.gradle >> /etc/profile'
+                sh 'echo PATH=$PATH:$GRADLE_HOME/bin >> /etc/profile'
+                sh 'echo export GRADLE_HOME GRADLE_USER_HOME PATH >> /etc/profile'
+                sh 'source /etc/profile'
                 sh 'echo $PATH'
+                sh 'gradle -version'
             }
         }
     }
