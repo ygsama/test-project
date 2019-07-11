@@ -23,7 +23,7 @@ pipeline {
                 sh 'echo GRADLE_USER_HOME=/opt/.gradle >> /etc/profile'
                 sh 'echo PATH=$PATH:$GRADLE_HOME/bin >> /etc/profile'
                 sh 'echo export GRADLE_HOME GRADLE_USER_HOME PATH >> /etc/profile'
-                sh 'source /etc/profile'
+                sh '. /etc/profile'
                 sh 'echo $PATH'
                 sh 'gradle -version'
             }
