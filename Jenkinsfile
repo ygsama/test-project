@@ -5,12 +5,11 @@ pipeline {
     }
     agent {
         docker {
-            image 'openjdk:8-jdk'
-            args '--privileged=true'
-            args '-v /bin/docker:/bin/docker'
+            image 'gradle:4.10.2-jdk8'
+            args '--privileged'
+            args '-v redis-data:/root/.gradle/'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
-            args '-v /opt/gradle-4.10.3:/opt/gradle-4.10.3:shared'
-            args '-v /opt/.gradle:/opt/.gradle:shared'
+            args '-v /bin/docker:/bin/docker'
         }
     }
     stages {
@@ -18,14 +17,23 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls -al'
-                sh 'ls -al /opt/gradle-4.10.3'
-                sh 'echo GRADLE_HOME=/opt/gradle-4.10.3 >> /etc/profile'
-                sh 'echo GRADLE_USER_HOME=/opt/.gradle >> /etc/profile'
-                sh 'echo PATH=$PATH:$GRADLE_HOME/bin >> /etc/profile'
-                sh 'echo export GRADLE_HOME GRADLE_USER_HOME PATH >> /etc/profile'
-                sh '. /etc/profile'
-                sh 'echo $PATH'
-                sh 'gradle -version'
+                sh 'gradle bootjar'
+            }
+        }
+        stage('Deliver to Nexus') {
+            steps {
+                sh 'pwd'
+                sh 'ls -al'
+                sh 'cp Dockerfile ./build/libs/'
+                sh 'ls -al ./build/libs'
+                sh 'docker build -t 10.2.21.95:10001/${APP_NAME}:${APP_VERSION} ./build/libs'
+                sh 'docker login -u publisher -p publisher 10.2.21.95:10001'
+                sh 'docker push 10.2.21.95:10001/${APP_NAME}:${APP_VERSION}'
+            }
+        }
+        stage('Deploy in Docker') {
+            steps {
+                sh 'docker run -d -p 9090:8080  10.2.21.95:10001/${APP_NAME}:${APP_VERSION}'
             }
         }
     }
