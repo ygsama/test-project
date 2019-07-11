@@ -22,8 +22,7 @@ pipeline {
                 sh 'export GRADLE_HOME=/opt/gradle-4.10.3'
                 sh 'export GRADLE_USER_HOME=/opt/.gradle'
                 sh 'export PATH=$PATH:$GRADLE_HOME/bin'
-
-                sh 'top'
+                sh 'echo $PATH'
             }
         }
     }
