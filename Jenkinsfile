@@ -18,6 +18,8 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls -al'
+                sh 'ls -al /root/.gradle'
+                sh 'ls -al /home/gradle/.gradle'
                 sh 'gradle bootjar'
             }
         }
