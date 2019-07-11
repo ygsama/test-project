@@ -20,6 +20,7 @@ pipeline {
                 sh 'ls -al'
                 sh 'ls -al /opt/gradle-4.10.3'
                 sh '/opt/gradle-4.10.3/gradle -version'
+                sh 'top'
             }
         }
     }
